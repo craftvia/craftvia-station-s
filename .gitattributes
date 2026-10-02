@@ -1,0 +1,8 @@
+* text=auto eol=lf
+
+# Hardware release assets are preserved byte-for-byte for SHA256 verification.
+*.csv -text
+*.pdf -text -diff
+*.zip -text -diff
+*.eprj2 -text -diff
+*.epro -text -diff

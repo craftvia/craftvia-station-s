@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "station-s",
+  "name": "Station-S",
+  "role": "station",
+  "productVersion": "v1",
+  "pcbRevision": "Rev0",
+  "designStatus": "frozen",
+  "verificationStatus": "unverified",
+  "hardwareStatus": "boards-ordered",
+  "summary": {
+    "en": "A reusable Core-S development and measurement platform for programming, power control, UART logging, breakout access, and voltage/current measurement.",
+    "ja": "書き込み、電源操作、UARTログ、ブレイクアウト、電圧・電流測定を集約した、Core-S用の共通開発・計測プラットフォームです。"
+  },
+  "repository": "https://github.com/craftvia/craftvia-station-s",
+  "sourceRef": "main",
+  "image": "docs/images/station-s-v1-rev0-3d.webp",
+  "documents": {
+    "specification": {
+      "en": "docs/specification-v1-rev0.md",
+      "ja": "docs/specification-v1-rev0.ja.md"
+    },
+    "verificationPlan": {
+      "en": "docs/verification-plan-v1-rev0.md",
+      "ja": "docs/verification-plan-v1-rev0.ja.md"
+    },
+    "releaseNotes": "RELEASE_NOTES.md"
+  }
+}
