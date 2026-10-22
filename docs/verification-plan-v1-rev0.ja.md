@@ -2,6 +2,8 @@
 
 > 状態: 未検証Rev0ハードウェア用の検証計画Draftです。順番に実施し、後段の通電試験は前段の検査・絶縁確認への合格を前提とします。
 
+Rev0の主な開発Interface検証対象は、Core-S G031を使用するST-LINK／SWDです。凍結済みN2/N3 USB経路は撤回済みDraftに基づくため、現行Core-S USB Profile適合試験から除外します。USB評価は任意とし、安全なN7/N8 ReworkをReview・文書化できた場合だけ実施できます。
+
 この文書は英語正本 [`verification-plan-v1-rev0.md`](verification-plan-v1-rev0.md) の日本語翻訳版です。解釈に差異がある場合は英語版を優先します。
 
 ## 1. 試験記録
@@ -40,7 +42,6 @@
 - STLINK ToolとSerial Terminalを備えたUSB Host
 - 検証済みCore-S G031または別途検証済みFixture
 - Target電流測定用の既知負荷
-- 任意USB経路試験専用のN2/N3 USB対応Test Core
 
 ## 4. 試験項目
 
@@ -65,11 +66,11 @@
 | `STS-R0-017` | STLINK絶縁 | JP8-JP11をOpenにし、STLINK無通電時と単独通電時のDEV Netを確認する。 | 分離経路が、文書化したLeakageを超えてDEV CoreをClampまたは回り込み給電しない。 | 電圧・抵抗Log |
 | `STS-R0-018` | User操作 | JP5/JP6をClosedにし、Reset、DEV User Button、DEV User LEDを操作する。 | ButtonとLEDの極性が仕様と一致し、JP5/JP6を開くと分離される。 | Firmware／Log |
 | `STS-R0-019` | USB-C給電 | JP1 1-2だけを選択し、USB-Cから給電してCC/VBUS/保護動作を確認する。 | Host警告がなく、Regulated Railが規定内で、他の5 V Sourceへ回り込み給電しない。 | USB、Rail Log |
-| `STS-R0-020` | USB Data経路 | 対応Test Coreを用い、無通電でJP7を2-3、JP8-JP11をOpenにしてN2/N3 USBを試験する。 | Deviceが認識されData転送でき、SWD/STLINK経路が分離される。 | Host、Signal Integrity Log |
+| `STS-R0-020` | USB Rework可否・任意 | 凍結済みN2/N3 USB経路を検査し、現行Profile適合対象外として記録する。Engineering Reviewで安全なReworkが可能と判断した場合は、N2/N3を分離してConnector D-/D+をN7/N8へ接続するPattern cut／Jumperを文書化し、通電前に外観・導通確認する。その後、対応CoreでUSB Enumeration／転送を任意試験する。 | Reworkしない場合は`Not run`を記録しUSBを未検証のままとする。または承認済みRework記録、分離確認、Enumeration、転送、ST-LINK／SWD Recoveryがすべて成功する。 | Review記録、注釈付き写真、導通Matrix、実施時はHost／Signal Integrity Log |
 | `STS-R0-021` | Breakout導通 | 全DEV接点と、関連するCTRL/LCD/Test Point Footprintを公開Net Mapと照合する。 | 全意図Nodeが導通し、隣接短絡がない。 | 完成したMatrix |
 | `STS-R0-022` | Source・負荷Budget | 代表的なDEV、CTRL、LCD、Indicator、Target負荷で入力電流とRegulator温度を測定する。 | 各Sourceが宣言Budget内で、Railが規定内に留まり、温度が許容可能かつ記録される。 | 負荷・温度Report |
 | `STS-R0-023` | 反復Power Cycle | Cold Start、Reset、Programming、UART、Measurement試験を繰り返す。 | Connector、Jumper、起動、Enumerationに間欠Failureがない。 | Cycle回数、Log |
 
 ## 5. 検証判定
 
-Station-Sの基本検証には、安全、電源、DEV Socket、SWD、Reset、VCP、Breakout、Measurementの全試験合格が必要です。任意のUSBおよびCTRL/LCD機能は個別に報告できますが、未試験機能は明示的にUnverifiedのまま残します。設計変更には新しいPCB Revisionが必要で、Rev0のFail Evidenceは保存します。
+Station-Sの基本検証には、安全、電源、DEV Socket、ST-LINK／SWD、Reset、VCP、Breakout、Measurementの全試験合格が必要です。`STS-R0-020`、USB、CTRL/LCD機能は任意で個別報告できます。USB Reworkを実施しない、または実施できないことはRev0基本検証を妨げず、USBは明示的にUnverifiedのまま残します。設計変更には新しいPCB Revisionが必要で、Rev0のFail Evidenceは保存します。

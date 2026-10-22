@@ -4,6 +4,10 @@
 > **状態：凍結済み設計・未検証ハードウェア**  
 > Rev0は発注済みですが未実装・未通電・未検証です。以下の動作ModeとLimitは実機検証が必要です。[英語版](specification-v1-rev0.md)を正本とします。
 
+> [!IMPORTANT]
+> **実装済み旧USB経路**
+> Rev0は、撤回済みの未検証Core-S Draftに基づくN2/N3 USB実装を正確に記録しています。現行Native USB ProfileはN7/N8を使用します。Rev0はST-LINK／SWD検証に使用でき、現行ProfileのUSB評価には文書化したReworkが必要です。[Release Note](../RELEASE_NOTES.ja.md)を参照してください。
+
 ## 1. 識別と正本
 
 | 項目 | 内容 |
@@ -126,6 +130,8 @@ U3はSTLINK-V3MODSで、SWDはDEV/DUTにだけ接続されます。凍結済みV
 JP8はNRST、JP9/JP10はVCP、JP11はTarget voltage senseを分離します。STLINK使用時は通常closed、USB-only経路ではopenとします。
 
 ## 8. SWD、BOOT、USB
+
+以下のN2/N3 USB記述は凍結済みRev0回路の実装記録であり、現行Core-S Native USB適合を意味しません。現行Profile USB試験はRev0必須検証から除外します。N7/N8 ReworkをReview・文書化・検査・導通確認できた場合だけ任意評価できます。
 
 | Jumper | 役割 | 標準意図 |
 | --- | --- | --- |

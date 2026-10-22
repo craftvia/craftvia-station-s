@@ -12,6 +12,17 @@
 
 This release was checked against the project opened in EasyEDA on 2026-09-30. The project, schematic and PCB identifiers, VCP correction, component population, PCB primitive counts and net count correspond to the frozen source package.
 
+## Core-S USB profile mismatch
+
+Rev0 physically routes its target USB path to Core-S N2/N3 according to an earlier pre-verification interface draft. The current [Core-S Debug, Programming, and USB Port v1](https://github.com/craftvia/craftvia-docs/blob/main/standards/core-s-debug-port-v1.md) retains N2/N3 for basic debug/data and assigns native USB to N7/N8.
+
+- This mismatch does not affect the primary Rev0 ST-LINK/SWD use with Core-S G031.
+- Rev0 does not conform to the current native USB profile in its frozen state.
+- The N2/N3 USB path is excluded from current-profile conformance testing.
+- USB may be evaluated only if an N7/N8 rework is first judged electrically and mechanically feasible, documented, inspected, and continuity-checked.
+- Native N7/N8 USB routing is planned for Station-S v1 Rev1.
+- Frozen source, Gerber, BOM, schematic, and assembly exports remain unchanged as the authoritative Rev0 implementation record.
+
 ## Release decision
 
 The package is acceptable for an initial Rev0 PCB fabrication order, subject to the assembly and ordering conditions below.
@@ -133,7 +144,7 @@ Never select multiple JP1 power-source pairs simultaneously.
 5. Confirm JP2 behavior before using an external ammeter.
 6. Verify SWDIO, SWCLK, NRST and target-voltage sensing through JP3, JP8 and JP11.
 7. Verify VCP loopback and target communication through JP9/JP10, including TX/RX direction.
-8. Verify JP7 selection between SWD and USB and confirm the USB-C CC, ESD, VBUS and mux paths.
+8. Inspect the frozen JP7, USB-C CC, ESD, VBUS and mux paths, and record that the N2/N3 USB output is a legacy-draft path excluded from current-profile conformance. Perform USB enumeration only after an approved and documented N7/N8 rework.
 9. Exercise all DEV/DUT and CTRL socket pins with a continuity fixture before inserting Core-S boards.
 10. Confirm all jumper-cap states against the intended test mode before every power-up.
 

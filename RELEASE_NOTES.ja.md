@@ -14,6 +14,17 @@
 
 本Releaseは、2026-09-30にEasyEDAで開いたProjectと照合しました。Project、回路図、PCBの識別子、VCP修正、部品実装状態、PCB Primitive数、Net数は凍結済みSource Packageと一致しています。
 
+## Core-S USB Profile不一致
+
+Rev0は過去の未検証Interface Draftに従い、Target USB経路をCore-S N2/N3へ物理接続しています。現行の[Core-S共通デバッグ／書き込み／USBポート v1](https://github.com/craftvia/craftvia-docs/blob/main/standards/core-s-debug-port-v1.ja.md)は、N2/N3を基本Debug／Data用として維持し、Native USBをN7/N8へ割り当てます。
+
+- この不一致はCore-S G031を使用するRev0の主目的であるST-LINK／SWDに影響しない
+- Rev0の凍結状態は現行Native USB Profileに適合しない
+- N2/N3 USB経路は現行Profile適合試験から除外する
+- USBは、N7/N8 Reworkが電気的・機械的に可能と事前判断され、手順、検査、導通確認を記録できる場合だけ任意評価する
+- Native N7/N8 USB配線はStation-S v1 Rev1で対応予定
+- 凍結済みSource、Gerber、BOM、回路図、Assembly ExportはRev0実装記録として変更しない
+
 ## Release判定
 
 以下の実装・発注条件を前提として、初回Rev0 PCB試作発注に使用可能なPackageです。
@@ -135,7 +146,7 @@ Rev0 Silkscreen／Schematicの標準状態は次のとおりです。
 5. 外部Ammeter使用前にJP2動作を確認する
 6. JP3、JP8、JP11を介してSWDIO、SWCLK、NRST、Target Voltage Senseを確認する
 7. JP9／JP10を介したVCP LoopbackとTarget通信をTX/RX方向を含めて確認する
-8. JP7によるSWD／USB選択と、USB-C CC、ESD、VBUS、MUX経路を確認する
+8. 凍結済みJP7、USB-C CC、ESD、VBUS、MUX経路を検査し、N2/N3 USB出力が現行Profile適合対象外の旧Draft経路であることを記録する。USB Enumerationは承認・文書化したN7/N8 Rework後に限り実施する
 9. Core-Sを挿入する前に、Continuity FixtureでDEV/DUTおよびCTRL Socketの全Pinを確認する
 10. 毎回の通電前に、全Jumper Cap状態を意図するTest Modeと照合する
 

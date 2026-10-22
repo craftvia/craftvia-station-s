@@ -4,6 +4,10 @@
 > **Status: Frozen design, unverified hardware**  
 > Rev0 has been ordered but has not been assembled, powered, or electrically validated. All operating modes and limits below require first-article verification.
 
+> [!IMPORTANT]
+> **As-built legacy USB path**
+> Rev0 accurately documents its frozen N2/N3 USB implementation, which follows a withdrawn pre-verification Core-S draft. The current native USB profile uses N7/N8. Rev0 remains applicable to ST-LINK/SWD validation and requires documented rework before any current-profile USB evaluation. See the [release notes](../RELEASE_NOTES.md).
+
 ## 1. Identity and authority
 
 | Item | Value |
@@ -137,6 +141,8 @@ JP8 isolates NRST, JP9 and JP10 isolate the VCP paths, and JP11 isolates STLINK 
 
 ## 8. SWD, boot, and USB selection
 
+The N2/N3 USB entries below describe the frozen Rev0 circuit, not current Core-S native-USB conformance. Current-profile USB testing is excluded from the required Rev0 verification scope. It may be attempted only after an N7/N8 rework is reviewed, documented, inspected, and continuity-checked.
+
 | Jumper | Rev0 role | Default intent |
 | --- | --- | --- |
 | JP3 | SWCLK connection/isolation | Closed for SWD |
@@ -187,4 +193,3 @@ Several supplier fields are EasyEDA aliases rather than normal LCSC numbers. Res
 ## 12. Verification
 
 Use [`verification-plan-v1-rev0.md`](verification-plan-v1-rev0.md). The validation record must identify all jumper positions, installed optional parts, Core revision, firmware, instruments, and power source.
-

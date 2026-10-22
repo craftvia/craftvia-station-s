@@ -4,6 +4,10 @@
 > **Unverified Rev 0 hardware**  
 > The Rev 0 boards have been ordered and are awaiting delivery. They have not yet been assembled, powered, or electrically verified. Manufacturing or assembly is at your own risk.
 
+> [!IMPORTANT]
+> **Core-S USB profile update**
+> Rev0 implements an earlier draft USB path on N2/N3. The current Core-S native USB profile uses N7/N8. Rev0 remains the primary ST-LINK/SWD validation platform and does not support the current native USB profile without documented rework. PCB support is planned for Station-S v1 Rev1.
+
 [日本語](README.ja.md) · [CraftVia](https://craftvia.org) · [Rev 0 release notes](RELEASE_NOTES.md)
 
 ![CraftVia Station-S v1 Rev0 CAD rendering](docs/images/station-s-v1-rev0-3d.webp)
@@ -32,7 +36,7 @@ Station-S is intended to provide wiring access, SWD programming and debugging, t
 - PCB: 4 layers
 - Integrated STLINK-V3MODS interface
 - Core-S DEV/DUT and CTRL sockets
-- SWD, UART VCP, RESET, BOOT, user controls, and USB routing
+- SWD, UART VCP, RESET, BOOT, user controls, and a legacy-draft N2/N3 USB route
 - Separate control and target power paths
 - INA226-based target current measurement path
 - Breakout and universal wiring areas
@@ -61,11 +65,12 @@ Read the complete [`v1-rev0` release notes](RELEASE_NOTES.md) before ordering or
 - Several Supplier Part values require manual confirmation before assembly payment.
 - Jumper caps are not separate BOM items and must be procured or configured explicitly.
 - The CTRL Core-S socket is not connected to the integrated STLINK SWD interface; program a CTRL Core in the DEV/DUT socket before moving it.
+- The Rev0 N2/N3 USB route follows a withdrawn pre-verification draft and is not the current N7/N8 native USB profile.
 - Confirm the H5-H7 female-contact type and complete Core-S mechanical stack before assembly.
 
 ## First-article validation
 
-Initial validation will cover board dimensions and holes, rail shorts, current-limited power-up, 3.3 V regulation, current measurement, SWD, target-voltage sensing, UART VCP direction, USB selection, jumper states, and continuity of both Core-S sockets. Results will be published without moving the `v1-rev0` tag. Design changes require a new revision.
+Initial validation will prioritize board dimensions and holes, rail shorts, current-limited power-up, 3.3 V regulation, current measurement, ST-LINK/SWD, target-voltage sensing, UART VCP direction, jumper states, and continuity of both Core-S sockets. The legacy USB path is excluded from current-profile conformance testing. USB may be evaluated only after a safe N7/N8 rework is reviewed and documented. Results will be published without moving the `v1-rev0` tag. Design changes require a new revision.
 
 ## License and brand
 

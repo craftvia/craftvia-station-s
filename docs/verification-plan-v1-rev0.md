@@ -2,6 +2,8 @@
 
 > Status: Draft verification plan for unverified Rev0 hardware. Perform tests in order; later powered tests depend on earlier inspection and isolation checks.
 
+The primary Rev0 development-interface target is ST-LINK/SWD with Core-S G031. The frozen N2/N3 USB route follows a withdrawn draft and is excluded from current Core-S USB-profile conformance testing. USB evaluation is optional and may proceed only after a safe N7/N8 rework is reviewed and documented.
+
 ## 1. Test record
 
 | Field | Record |
@@ -37,8 +39,7 @@ Every result is **Pass**, **Fail**, **Blocked**, or **Not run**, with measuremen
 - external ammeter or source-measure instrument;
 - USB host with STLINK tools and serial terminal;
 - verified Core-S G031 or separately validated fixture;
-- known loads for target-current measurement;
-- USB-capable N2/N3 test Core only for the optional USB-path test.
+- known loads for target-current measurement.
 
 ## 4. Tests
 
@@ -63,11 +64,11 @@ Every result is **Pass**, **Fail**, **Blocked**, or **Not run**, with measuremen
 | `STS-R0-017` | STLINK isolation | Open JP8-JP11 and check the DEV nets with STLINK unpowered and separately powered. | Isolated paths do not clamp or back-power the DEV Core beyond documented leakage. | Voltage/resistance log |
 | `STS-R0-018` | User controls | Close JP5/JP6 and exercise reset, DEV user button, and DEV user LED. | Button polarity and LED polarity match the specification; opening JP5/JP6 isolates them. | Firmware/log |
 | `STS-R0-019` | USB-C power | Select only JP1 1-2 and power through USB-C. Inspect CC/VBUS/protection behavior. | No host warning; regulated rails meet limits; no other 5 V source is back-powered. | USB and rail log |
-| `STS-R0-020` | USB data path | With a compatible test Core, power off, set JP7 to 2-3 and open JP8-JP11, then test N2/N3 USB. | Device enumerates and transfers data; SWD/STLINK paths remain isolated. | Host and signal-integrity log |
+| `STS-R0-020` | USB rework disposition, optional | Inspect the frozen N2/N3 USB route and record that it is outside current-profile conformance. If an engineering review finds a safe rework feasible, document trace cuts and jumpers that isolate N2/N3 and connect connector D-/D+ to N7/N8; inspect and continuity-check before power. USB enumeration and transfer may then be attempted with a compatible Core. | A no-rework decision is recorded as `Not run` and USB remains unverified; or the approved rework record, isolation checks, enumeration, transfer, and retained ST-LINK/SWD recovery all pass. | Review record, annotated photos, continuity matrix, host and signal-integrity log if run |
 | `STS-R0-021` | Breakout continuity | Verify every DEV contact and relevant CTRL/LCD/test-point footprint against the published net map. | All intended nodes are continuous with no adjacent short. | Completed matrix |
 | `STS-R0-022` | Source and load budget | Measure input current and regulator temperature with representative DEV, CTRL, LCD, indicator, and target loads. | Each source stays within its declared budget; rails stay in tolerance; temperature is acceptable and recorded. | Load/thermal report |
 | `STS-R0-023` | Repeated power-cycle | Repeat cold start, reset, programming, UART, and measurement tests. | No intermittent connector, jumper, startup, or enumeration failure. | Cycle count and log |
 
 ## 5. Verification decision
 
-Basic Station-S verification requires all safety, power, DEV socket, SWD, reset, VCP, breakout, and measurement tests to pass. Optional USB and CTRL/LCD functions may be reported separately, but any untested feature must remain explicitly unverified. Design changes require a new PCB revision; failed Rev0 evidence is retained.
+Basic Station-S verification requires all safety, power, DEV socket, ST-LINK/SWD, reset, VCP, breakout, and measurement tests to pass. `STS-R0-020`, USB, and CTRL/LCD functions are optional and may be reported separately; a skipped or unavailable USB rework does not block basic Rev0 verification and USB remains explicitly unverified. Design changes require a new PCB revision; failed Rev0 evidence is retained.
